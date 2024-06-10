@@ -1,16 +1,28 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.10)
 project(LabProg)
 
+# Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(LabProg src/main.cpp
-        src/Transaction.cpp
-        src/Transaction.h
-        src/Income.cpp
-        src/Income.h
-        src/Expense.cpp
-        src/Expense.h
+# Include directories
+include_directories(src)
+
+# Add the source files
+add_library(asprog_lib
         src/BankAccount.cpp
-        src/BankAccount.h
+        src/Transaction.cpp
+        src/Income.cpp
+        src/Expense.cpp
         src/TransactionFileManager.cpp
-        src/TransactionFileManager.h)
+)
+
+# Add the main executable
+add_executable(LabProg src/main.cpp)
+target_link_libraries(LabProg asprog_lib)
+
+
+# Add the test directory
+add_subdirectory(tests/googletest)
+
+
