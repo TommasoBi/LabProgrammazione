@@ -1,0 +1,2 @@
+Income 100 2024-06-11 regalo
+Expense 30 2024-06-11 benzina
