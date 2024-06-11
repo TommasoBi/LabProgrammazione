@@ -30,6 +30,9 @@ void BankAccount::printTransactions() const {
 void BankAccount::loadTransactionsFromFile(const std::string& filename) {
     transactions = TransactionFileManager::loadTransactions(filename);
     balance = 0.0;
+    if (transactions.empty()) {
+        throw std::runtime_error("Unable to open file: " + filename);
+    }
     for (const auto& transaction : transactions) {
         if (transaction->getType() == "Income") {
             balance += transaction->getAmount();
