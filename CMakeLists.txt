@@ -26,7 +26,9 @@ add_executable(LabProg ${SOURCES})
 
 # Add the test executable
 add_executable(LabProgtest
-        tests/test.cpp
+        tests/BankAccountBalanceTest.cpp
+        tests/BankAccountTransactionTest.cpp
+        tests/BankAccountFileTest.cpp
         src/BankAccount.cpp
         src/Income.cpp
         src/Expense.cpp
