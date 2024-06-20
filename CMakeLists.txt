@@ -19,7 +19,6 @@ set(SOURCES
         src/Income.cpp
         src/Expense.cpp
         src/Transaction.cpp
-        src/TransactionFileManager.cpp
 )
 
 # Aggiungi l'eseguibile principale
@@ -32,7 +31,6 @@ add_executable(LabProgtest
         src/Income.cpp
         src/Expense.cpp
         src/Transaction.cpp
-        src/TransactionFileManager.cpp
 )
 
 # Link GoogleTest to the test executable
