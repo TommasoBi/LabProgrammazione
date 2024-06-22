@@ -10,9 +10,11 @@ void showMenu() {
     std::cout << "2. Add Expense\n";
     std::cout << "3. Show Balance\n";
     std::cout << "4. Show Transactions\n";
-    std::cout << "5. Load Transactions from File\n";
-    std::cout << "6. Save Transactions to File\n";
-    std::cout << "7. Exit\n";
+    std::cout << "5. Remove Transaction\n";
+    std::cout << "6. Update Transaction\n";
+    std::cout << "7. Load Transactions from File\n";
+    std::cout << "8. Save Transactions to File\n";
+    std::cout << "9. Exit\n";
     std::cout << "----------------------------------\n";
     std::cout << "Choose an option: ";
 }
@@ -63,14 +65,46 @@ int main() {
                 break;
             }
             case 5: {
-                account.loadTransactionsFromFile(filename);
+                size_t index;
+                std::cout << "Enter the transaction index to remove (starting from 1): ";
+                std::cin >> index;
+                account.removeTransaction(index);
                 break;
             }
             case 6: {
-                account.saveTransactionsToFile(filename);
+                size_t index;
+                double amount;
+                std::string date, description, type;
+                std::cout << "Enter the transaction index to update (starting from 1): ";
+                std::cin >> index;
+                std::cout << "Enter new type (Income/Expense): ";
+                std::cin >> type;
+                std::cout << "Enter new amount: ";
+                std::cin >> amount;
+                std::cout << "Enter new date (YYYY-MM-DD): ";
+                std::cin >> date;
+                std::cout << "Enter new description: ";
+                std::cin.ignore();
+                std::getline(std::cin, description);
+
+                if (type == "Income") {
+                    account.updateTransaction(index, std::make_shared<Income>(amount, date, description));
+                } else if (type == "Expense") {
+                    account.updateTransaction(index, std::make_shared<Expense>(amount, date, description));
+                } else {
+                    std::cerr << "Invalid transaction type." << std::endl;
+                }
                 break;
             }
             case 7: {
+                account.loadTransactionsFromFile(filename);
+                break;
+            }
+            case 8: {
+                account.saveTransactionsToFile(filename);
+                break;
+            }
+            case 9: {
                 running = false;
                 break;
             }
