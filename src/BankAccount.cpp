@@ -8,17 +8,60 @@
 
 BankAccount::BankAccount() : balance(0.0) {}
 
+void BankAccount::updateBalance() {
+    balance = 0.0;
+    for (const auto& transaction : transactions) {
+        if (transaction->getType() == "Income") {
+            balance += transaction->getAmount();
+        } else if (transaction->getType() == "Expense") {
+            balance -= transaction->getAmount();
+        }
+    }
+}
+
 void BankAccount::addTransaction(const std::shared_ptr<Transaction>& transaction) {
     if (transaction->getAmount() == 0) {
         throw NullTransactionException();
     }
 
     transactions.push_back(transaction);
-    if (transaction->getType() == "Income") {
-        balance += transaction->getAmount();
-    } else if (transaction->getType() == "Expense") {
-        balance -= transaction->getAmount();
+    updateBalance();
+}
+
+void BankAccount::removeTransaction(size_t index) {
+    if (index < 1 || index > transactions.size()) {
+        throw std::out_of_range("Invalid transaction index");
     }
+
+    auto transaction = transactions[index - 1];
+    if (transaction->getType() == "Income") {
+        balance -= transaction->getAmount();
+    } else if (transaction->getType() == "Expense") {
+        balance += transaction->getAmount();
+    }
+
+    transactions.erase(transactions.begin() + (index - 1));
+    updateBalance();
+}
+
+void BankAccount::updateTransaction(size_t index, const std::shared_ptr<Transaction>& newTransaction) {
+    if (index < 1 || index > transactions.size()) {
+        throw std::out_of_range("Invalid transaction index");
+    }
+
+    auto oldTransaction = transactions[index - 1];
+    if (oldTransaction->getType() == "Income") {
+        balance -= oldTransaction->getAmount();
+    } else if (oldTransaction->getType() == "Expense") {
+        balance += oldTransaction->getAmount();
+    }
+
+    if (newTransaction->getAmount() == 0) {
+        throw NullTransactionException();
+    }
+
+    transactions[index - 1] = newTransaction;
+    updateBalance();
 }
 
 double BankAccount::getBalance() const {
@@ -54,7 +97,7 @@ void BankAccount::loadTransactionsFromFile(const std::string& filename) {
             balance -= amount;
         }
     }
-
+    updateBalance();
     file.close();
 }
 

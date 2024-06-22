@@ -10,9 +10,13 @@ private:
     double balance;
     std::vector<std::shared_ptr<Transaction>> transactions;
 
+    void updateBalance();
+
 public:
     BankAccount();
     void addTransaction(const std::shared_ptr<Transaction>& transaction);
+    void removeTransaction(size_t index);
+    void updateTransaction(size_t index, const std::shared_ptr<Transaction>& newTransaction);
     double getBalance() const;
     void printTransactions() const;
 
