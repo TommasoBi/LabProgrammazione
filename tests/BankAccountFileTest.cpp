@@ -14,10 +14,10 @@ account.addTransaction(std::make_shared<Expense>(50.0, "2024-06-09", "Groceries"
 account.addTransaction(std::make_shared<Income>(150.0, "2024-06-10", "Freelance"));
 
 std::string filename = "transactions.txt";
-account.saveTransactionsToFile(filename);
+account.save(filename);
 
 BankAccount newAccount;
-newAccount.loadTransactionsFromFile(filename);
+newAccount.load(filename);
 
 // Verifica che il saldo del nuovo conto sia uguale al saldo originale
 EXPECT_EQ(account.getBalance(), newAccount.getBalance());
@@ -26,5 +26,5 @@ EXPECT_EQ(account.getBalance(), newAccount.getBalance());
 TEST(BankAccountTest, LoadNonExistingFile) {
 BankAccount account;
 std::string filename = "non_existing_file.txt";
-ASSERT_THROW(account.loadTransactionsFromFile(filename), std::runtime_error);
+ASSERT_THROW(account.load(filename), std::runtime_error);
 }

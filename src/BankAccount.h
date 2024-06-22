@@ -20,8 +20,8 @@ public:
     double getBalance() const;
     void printTransactions() const;
 
-    void loadTransactionsFromFile(const std::string& filename);
-    void saveTransactionsToFile(const std::string& filename) const;
+    void load(const std::string& filename);
+    void save(const std::string& filename) const;
 
     class NullTransactionException : public std::exception {
     public:

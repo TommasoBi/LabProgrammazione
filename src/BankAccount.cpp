@@ -77,7 +77,7 @@ void BankAccount::printTransactions() const {
     }
 }
 
-void BankAccount::loadTransactionsFromFile(const std::string& filename) {
+void BankAccount::load(const std::string& filename) {
     transactions.clear();
     std::ifstream file(filename);
 
@@ -101,7 +101,7 @@ void BankAccount::loadTransactionsFromFile(const std::string& filename) {
     file.close();
 }
 
-void BankAccount::saveTransactionsToFile(const std::string& filename) const {
+void BankAccount::save(const std::string& filename) const {
     std::ofstream file(filename);
 
     if (!file.is_open()) {

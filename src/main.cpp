@@ -97,11 +97,11 @@ int main() {
                 break;
             }
             case 7: {
-                account.loadTransactionsFromFile(filename);
+                account.load(filename);
                 break;
             }
             case 8: {
-                account.saveTransactionsToFile(filename);
+                account.save(filename);
                 break;
             }
             case 9: {
