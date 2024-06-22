@@ -77,6 +77,16 @@ void BankAccount::printTransactions() const {
     }
 }
 
+std::vector<std::shared_ptr<Transaction>> BankAccount::searchTransactionsByDate(const std::string& date) const {
+    std::vector<std::shared_ptr<Transaction>> results;
+    for (const auto& transaction : transactions) {
+        if (transaction->getDate() == date) {
+            results.push_back(transaction);
+        }
+    }
+    return results;
+}
+
 void BankAccount::load(const std::string& filename) {
     transactions.clear();
     std::ifstream file(filename);

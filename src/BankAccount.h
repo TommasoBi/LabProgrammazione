@@ -19,6 +19,7 @@ public:
     void updateTransaction(size_t index, const std::shared_ptr<Transaction>& newTransaction);
     double getBalance() const;
     void printTransactions() const;
+    std::vector<std::shared_ptr<Transaction>> searchTransactionsByDate(const std::string& date) const;
 
     void load(const std::string& filename);
     void save(const std::string& filename) const;
