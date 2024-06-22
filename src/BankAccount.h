@@ -18,6 +18,13 @@ public:
 
     void loadTransactionsFromFile(const std::string& filename);
     void saveTransactionsToFile(const std::string& filename) const;
+
+    class NullTransactionException : public std::exception {
+    public:
+        const char* what() const noexcept override {
+            return "Invalid transaction: amount cannot be 0";
+        }
+    };
 };
 
 #endif // BANKACCOUNT_H

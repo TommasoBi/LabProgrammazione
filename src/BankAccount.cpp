@@ -9,6 +9,10 @@
 BankAccount::BankAccount() : balance(0.0) {}
 
 void BankAccount::addTransaction(const std::shared_ptr<Transaction>& transaction) {
+    if (transaction->getAmount() == 0) {
+        throw NullTransactionException();
+    }
+
     transactions.push_back(transaction);
     if (transaction->getType() == "Income") {
         balance += transaction->getAmount();
