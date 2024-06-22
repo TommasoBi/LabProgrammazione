@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <limits>
 #include "BankAccount.h"
 #include "Income.h"
 #include "Expense.h"
@@ -12,9 +13,10 @@ void showMenu() {
     std::cout << "4. Show Transactions\n";
     std::cout << "5. Remove Transaction\n";
     std::cout << "6. Update Transaction\n";
-    std::cout << "7. Load Transactions from File\n";
-    std::cout << "8. Save Transactions to File\n";
-    std::cout << "9. Exit\n";
+    std::cout << "7. Search Transactions by Date\n";
+    std::cout << "8. Load Transactions from File\n";
+    std::cout << "9. Save Transactions to File\n";
+    std::cout << "10. Exit\n";
     std::cout << "----------------------------------\n";
     std::cout << "Choose an option: ";
 }
@@ -97,14 +99,33 @@ int main() {
                 break;
             }
             case 7: {
-                account.load(filename);
+                std::string date;
+                std::cout << "Enter date to search (YYYY-MM-DD): ";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, date);
+                auto results = account.searchTransactionsByDate(date);
+                if (results.empty()) {
+                    std::cout << "No transactions found for date: " << date << std::endl;
+                } else {
+                    std::cout << "Transactions for date " << date << ":" << std::endl;
+                    for (const auto& transaction : results) {
+                        std::cout << transaction->getType() << ": "
+                                  << transaction->getAmount() << " on "
+                                  << transaction->getDate() << " - "
+                                  << transaction->getDescription() << std::endl;
+                    }
+                }
                 break;
             }
             case 8: {
-                account.save(filename);
+                account.load(filename);
                 break;
             }
             case 9: {
+                account.save(filename);
+                break;
+            }
+            case 10: {
                 running = false;
                 break;
             }
