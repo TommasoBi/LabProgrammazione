@@ -1,16 +1,18 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
+#include <chrono>
 #include <string>
+#include <sstream>
 
 class Transaction {
 protected:
     double amount;
-    std::string date;
+    std::chrono::system_clock::time_point date;
     std::string description;
 
 public:
-    Transaction(double amount, const std::string& date, const std::string& description);
+    Transaction(double amount, const std::string& dateStr, const std::string& description);
     virtual ~Transaction() = default;
 
     double getAmount() const;
