@@ -1,3 +1,2 @@
-Income 100 2024-06-11 regalo
+Income 200 2024-06-22 rimborso spese
 Expense 30 2024-06-11 benzina
-Income 200 2024-06-20 rimborso spese
