@@ -30,6 +30,7 @@ add_executable(LabProgtest
         tests/BankAccountTransactionTest.cpp
         tests/BankAccountFileTest.cpp
         tests/BankAccountSearchTest.cpp
+        tests/NullTransactionTest.cpp
         src/BankAccount.cpp
         src/Income.cpp
         src/Expense.cpp
